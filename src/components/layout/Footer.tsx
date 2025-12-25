@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { Shield, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Shield, Github, Linkedin, Twitter, Mail, Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const footerLinks = {
   platform: [
     { name: "Skills Platform", href: "/skills" },
-    { name: "Certifications", href: "/certifications" },
+    { name: "Certifications", href: "/skills" },
     { name: "Resources", href: "/resources" },
-    { name: "CTF Platform", href: "/ctf" },
+    { name: "CTF Platform", href: "https://ctf.nxtgensec.org", external: true },
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -17,11 +19,27 @@ const footerLinks = {
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
   ],
 };
 
 export function Footer() {
+  const [visitorCount, setVisitorCount] = useState<number>(0);
+
+  useEffect(() => {
+    const trackVisitor = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('track-visitor');
+        if (!error && data?.count) {
+          setVisitorCount(data.count);
+        }
+      } catch (err) {
+        console.error('Error tracking visitor:', err);
+      }
+    };
+
+    trackVisitor();
+  }, []);
+
   return (
     <footer className="border-t border-border/50 bg-card/30">
       <div className="container mx-auto px-4 py-16">
@@ -79,12 +97,23 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.platform.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -129,9 +158,15 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} NxtGenSec Pvt Ltd. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Securing the future, one skill at a time.
-          </p>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Users className="h-4 w-4 text-primary" />
+              <span>{visitorCount.toLocaleString()} visitors</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Securing the future, one skill at a time.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

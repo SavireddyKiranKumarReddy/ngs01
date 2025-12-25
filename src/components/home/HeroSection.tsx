@@ -60,7 +60,7 @@ export function HeroSection() {
               { icon: Terminal, text: "Hands-on Labs" },
               { icon: Lock, text: "CTF Challenges" },
               { icon: Zap, text: "AI-Powered Learning" },
-            ].map((feature, index) => (
+            ].map((feature) => (
               <div
                 key={feature.text}
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 text-sm text-muted-foreground"
@@ -75,10 +75,10 @@ export function HeroSection() {
         {/* Stats Section */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: "0.5s" }}>
           {[
-            { value: "10K+", label: "Students" },
-            { value: "50+", label: "Skill Paths" },
-            { value: "500+", label: "Challenges" },
-            { value: "98%", label: "Success Rate" },
+            { value: "50+", label: "Students" },
+            { value: "5", label: "Skill Paths" },
+            { value: "20+", label: "Challenges" },
+            { value: "Free", label: "To Start" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-primary text-glow mb-1">
