@@ -19,7 +19,7 @@ const upcomingEvents = [
     time: "48 hours",
     location: "Online",
     type: "CTF",
-    attendees: 500,
+    attendees: 50,
     featured: true,
   },
   {
@@ -30,7 +30,7 @@ const upcomingEvents = [
     time: "10:00 AM IST",
     location: "Online",
     type: "Workshop",
-    attendees: 150,
+    attendees: 25,
     featured: false,
   },
   {
@@ -41,18 +41,7 @@ const upcomingEvents = [
     time: "9:00 AM IST",
     location: "Bangalore, India",
     type: "Bootcamp",
-    attendees: 50,
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Bug Bounty Hunting 101",
-    description: "Learn how to find bugs in real-world applications and get paid for it.",
-    date: "March 1, 2025",
-    time: "2:00 PM IST",
-    location: "Online",
-    type: "Webinar",
-    attendees: 300,
+    attendees: 15,
     featured: false,
   },
 ];
@@ -62,22 +51,15 @@ const pastEvents = [
     id: 5,
     title: "NxtGenSec CTF 2024",
     date: "December 2024",
-    participants: 423,
+    participants: 32,
     type: "CTF",
   },
   {
     id: 6,
     title: "Linux Security Fundamentals",
     date: "November 2024",
-    participants: 189,
+    participants: 18,
     type: "Workshop",
-  },
-  {
-    id: 7,
-    title: "Career in Cybersecurity Panel",
-    date: "October 2024",
-    participants: 567,
-    type: "Webinar",
   },
 ];
 
@@ -196,7 +178,7 @@ export default function Events() {
           <h2 className="text-2xl font-bold mb-8">
             Past <span className="text-primary">Events</span>
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {pastEvents.map((event, index) => (
               <div
                 key={event.id}
